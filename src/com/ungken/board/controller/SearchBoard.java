@@ -69,8 +69,10 @@ public class SearchBoard extends HttpServlet {
 		
 		String page = "";
 		if(list != null) {
-			page = "views/board/boardList.jsp";
-			
+			page = "views/board/boardSearchResult.jsp";
+			request.setAttribute("category", Integer.toString(searchCategory));
+			request.setAttribute("searchInput", searchInput);
+			request.setAttribute("searchCondition", searchCondition);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
 		}else {
