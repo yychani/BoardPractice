@@ -23,7 +23,7 @@ public class DeleteBoardServlet extends HttpServlet {
 		int result = new BoardService().deleteBoard(bno);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/searchListAll.bo");
+			response.sendRedirect(request.getContextPath() + "/views/common/successPage.jsp?successCode=1");
 		}else {
 			request.setAttribute("msg", "게시물 삭제 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

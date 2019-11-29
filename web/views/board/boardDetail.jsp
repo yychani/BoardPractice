@@ -114,8 +114,9 @@ th {
 				$("#updateForm").submit();
 			}
 			function deleteB(){
-				$("#updateForm").attr("action", "<%=request.getContextPath() %>/deleteBoard.bo")
-				$("#updateForm").submit();
+				<%-- $("#updateForm").attr("action", "<%=request.getContextPath() %>/deleteBoard.bo")
+				$("#updateForm").submit(); --%>
+				location.replace("<%=request.getContextPath() %>/deleteBoard.bo?bno=<%=board.getbId() %>");
 			}
 			</script>
 		</div>

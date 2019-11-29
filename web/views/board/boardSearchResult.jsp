@@ -11,6 +11,18 @@
 	int limit = pi.getLimit();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
+	int category = 0;
+	if(request.getAttribute("category") != null){
+		category = Integer.parseInt((String)request.getAttribute("category"));
+	}
+	String searchInput = "";
+	if(request.getAttribute("searchInput") != null){
+		searchInput = (String) request.getAttribute("searchInput");
+	}
+	String searchCondition = "";
+	if(request.getAttribute("searchCondition") != null){
+		searchCondition = (String) request.getAttribute("searchCondition");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -74,7 +86,7 @@ button {
 		</table>
 		<div style="margin-top: 20px;">
 			<button style="width: 50px;"
-				onclick="<%=request.getContextPath()%>/searchListAll.bo?currentPage=<%=startPage%>">처음</button>
+				onclick="<%=request.getContextPath()%>/searchBoard.bo?currentPage=<%=startPage%>&category=<%=category %>&searchInput=<%=searchInput %>&searchCondition=<%=searchCondition %>">처음</button>
 			<%
 				if (currentPage <= 1) {
 			%>
@@ -83,7 +95,7 @@ button {
 				} else {
 			%>
 			<button style="width: 50px;"
-				onclick="location.href='<%=request.getContextPath()%>/searchListAll.bo?currentPage=<%=currentPage - 1%>'">이전</button>
+				onclick="location.href='<%=request.getContextPath()%>/searchBoard.bo?currentPage=<%=currentPage - 1%>&category=<%=category %>&searchInput=<%=searchInput %>&searchCondition=<%=searchCondition %>'">이전</button>
 			<%
 				}
 			%>
@@ -96,7 +108,7 @@ button {
 				} else {
 			%>
 			<button class="other"
-				onclick="location.href='<%=request.getContextPath()%>/searchListAll.bo?currentPage=<%=p%>'"><%=p%></button>
+				onclick="location.href='<%=request.getContextPath()%>/searchBoard.bo?currentPage=<%=p%>&category=<%=category %>&searchInput=<%=searchInput %>&searchCondition=<%=searchCondition %>'"><%=p%></button>
 			<%
 				}
 			%>
@@ -112,12 +124,12 @@ button {
 				} else {
 			%>
 			<button style="width: 50px;"
-				onclick="location.href='<%=request.getContextPath()%>/searchListAll.bo?currentPage=<%=currentPage + 1%>'">다음</button>
+				onclick="location.href='<%=request.getContextPath()%>/searchBoard.bo?currentPage=<%=currentPage + 1%>&category=<%=category %>&searchInput=<%=searchInput %>&searchCondition=<%=searchCondition %>'">다음</button>
 			<%
 				}
 			%>
 			<button style="width: 60px;"
-				onclick="location.href='<%=request.getContextPath()%>/searchListAll.bo?currentPage=<%=maxPage%>'">마지막</button>
+				onclick="location.href='<%=request.getContextPath()%>/searchBoard.bo?currentPage=<%=maxPage%>&category=<%=category %>&searchInput=<%=searchInput %>&searchCondition=<%=searchCondition %>'">마지막</button>
 		</div>
 		<div style="margin-top: 20px;">
 			<form action="<%=request.getContextPath()%>/searchBoard.bo"
@@ -132,7 +144,7 @@ button {
 					placeholder="검색할 내용을 입력하세요" style="height: 30px; width: 300px;">
 				<select name="category" id="category"
 					style="height: 30px; width: 300px;">
-					<option value="10">공통</option>
+					<option value="10" selected>공통</option>
 					<option value="20">운동</option>
 					<option value="30">등산</option>
 					<option value="40">게임</option>
@@ -141,10 +153,11 @@ button {
 					<option value="70">기타</option>
 				</select>
 				<button type="submit" style="height: 30px; width: 100px;">검색하기</button>
-			</form>
-			&nbsp;&nbsp;
+			</form>&nbsp;
 			<button onclick="location.href='views/board/boardInsertForm.jsp'"
 				style="height: 30px; width: 100px;">작성하기</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/searchListAll.bo'"
+				style="height: 30px; width: 100px;">전체보기</button>
 			<script>
 				$(function() {
 					$("#category").hide();
